@@ -9,7 +9,7 @@ class ClubCategoria(Club):
     def mostrar_datos2 (self):
         for i in self.activiades:
             print(i)
-
+            
     def agregar_socio(self, socio):
         self.__socios.append(socio)
 
@@ -24,4 +24,11 @@ class ClubCategoria(Club):
         return self.__socios
     def set_socios(self, socios_modificado):
         self.__socios = socios_modificado
+
+    
+    def registrar_socios(self, socios):
+        self.__socios.append(socios)
+
+    def cantidad_socios(self):
+        print("la cantidad de socios es: ", len(self.__socios))
 
