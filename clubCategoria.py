@@ -1,4 +1,4 @@
-from encapsulamiento.ejercicio1.club import Club
+from club import Club
 
 class ClubCategoria(Club):
     def __init__(self,  nombre, descripcion, ubicacion, presidente, fecha_fundacion):
@@ -6,6 +6,14 @@ class ClubCategoria(Club):
         self.__socios = []
         self.activiades = []
 
+    def get_socios(self):
+        return self.__socios
+
+    def set_socios(self, socios_modificado):
+        self.__socios = socios_modificado
+
+#metodos nuevos
+    
     def mostrar_datos2 (self):
         for i in self.activiades:
             print(i)
@@ -20,8 +28,10 @@ class ClubCategoria(Club):
         for i in self.__socios:
             print(i)
 
-    def get_socios(self):
-        return self.__socios
-    def set_socios(self, socios_modificado):
-        self.__socios = socios_modificado
+    def registrar_socios(self,registrado):
+        self.__socios.append(registrado)
 
+
+    def cantidad_socios_reg(self):
+        for i in self.__socios.__len__:
+            print("la cantidad de socios registrados son: ",i)
