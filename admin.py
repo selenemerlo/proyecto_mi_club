@@ -14,3 +14,17 @@ class Administrador:
     def set_contrasenia(self, contrasenia_modificada):
         self.__contrasenia = contrasenia_modificada
 
+
+
+#Reactivar socios previamente suspendidos.
+    def reactivar_socio(self):
+        if self.__usuario == "supendido":
+            self.__usuario = "reactivado"
+            print("El usuario a sido reactivado")
+
+
+
+
+    
+        
+

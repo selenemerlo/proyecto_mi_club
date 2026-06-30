@@ -25,3 +25,25 @@ class Persona:
         return self.__nacionalidad
     def set_nacionalidad(self, nacionalidad_modificada):
         self.__nacionalidad = nacionalidad_modificada
+
+
+
+#Determinar automáticamente si una persona es mayor o menor de edad.
+    def edad_persona(self):
+        if self.edad > 18:
+            print("La persona es mayor de edad")
+
+        else:
+            print("La persona es menor de edad")
+
+
+
+#Verificar que la identificación ingresada sea válida y no se encuentre vacía.
+
+    def edad_valida(self):
+        if self.edad == 0:
+            print("La numero ingresado no es valido")
+        else:
+            print("El numero ingresado es valido")
+
+

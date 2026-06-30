@@ -23,4 +23,13 @@ class Club:
     def set_fecha(self, fecha_modificada):
         self.__fecha_fundacion = fecha_modificada
 
-    
+#Permitir modificar el presidente del club cuando se produzca un cambio de autoridades.
+
+    def cambiar_presidente(self, presidente_modificado):
+        presidente = presidente_modificado
+
+
+#Mostrar la antigüedad del club calculando los años transcurridos desde su fecha de fundación hasta la fecha actual.
+
+    def anios_antiguedad(self):
+        

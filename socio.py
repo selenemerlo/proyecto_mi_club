@@ -23,3 +23,33 @@ class Socio(Persona):
         self.__contrasenia = contrasenia_nueva
 
     
+
+#Permitir que un socio deje de pertenecer a un club determinado.
+    def eliminar_de_club(self, usuario):
+        self.lista_clubes.remove(usuario)
+
+
+#Cambiar el estado de un socio activo a suspendido cuando corresponda.
+    def estado_socio(self):
+        if self.estado == "activo":
+                self.estado = "suspendido"
+                print("El usuario ha sido suspendido")
+        else:
+            print("El usuario sigue activo")
+
+
+
+#Reactivar un socio suspendido para que pueda volver a utilizar los servicios del club.
+
+    def reactivar_socio(self):
+        if self.estado == "suspendido":
+            self.estado = "activo"
+            print("El usario fue reactivado")
+        
+        
+#Permitir la actualización de la contraseña de acceso al sistema.
+    def actualizar_contrasenia(self, contrasenia_nueva):
+        self.__contrasenia = contrasenia_nueva
+
+
+

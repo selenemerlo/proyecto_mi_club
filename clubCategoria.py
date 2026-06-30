@@ -16,6 +16,7 @@ class ClubCategoria(Club):
     def agregar_actividades(self, actividad):
         self.activiades.append(actividad)
 
+
     def mostrar_socios(self):
         for i in self.__socios:
             print(i)
@@ -25,10 +26,46 @@ class ClubCategoria(Club):
     def set_socios(self, socios_modificado):
         self.__socios = socios_modificado
 
-    
+
+
+#Incorporar la funcionalidad para registrar nuevos socios dentro de la categoría correspondiente.
+
     def registrar_socios(self, socios):
         self.__socios.append(socios)
 
+
+#Permitir eliminar socios de la categoría cuando estos dejen de pertenecer a ella.
+    def eliminar_socios(self, socio):
+        self.__socios.remove(socio)
+
+        
+#Implementar una búsqueda que permita localizar rápidamente un socio utilizando algún dato identificatorio.
+
+    def buscar_socio(self, socio):
+        self.__socios.index(socio)
+
+
+#Obtener la cantidad total de socios registrados en la categoría.
     def cantidad_socios(self):
         print("la cantidad de socios es: ", len(self.__socios))
+
+#Permitir agregar nuevas actividades deportivas, recreativas o culturales ofrecidas por el club.
+    def agregar_actividad(self, actividad):
+        self.activiades.append(actividad)
+
+
+
+#Permitir eliminar actividades que ya no se encuentren disponibles.
+    def eliminar_actividad(self, actividad):
+        self.activiades.remove(actividad)
+
+
+#Mostrar un listado completo de las actividades que se realizan en la categoría.
+    def listado_actividades(self):
+        for i in self.activiades:
+            print(i)
+
+
+        
+    
 
