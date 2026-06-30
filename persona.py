@@ -25,3 +25,19 @@ class Persona:
         return self.__nacionalidad
     def set_nacionalidad(self, nacionalidad_modificada):
         self.__nacionalidad = nacionalidad_modificada
+
+#nuevos metodos 30/6/26
+    def verificador_edad(self):
+        if self.edad<18:
+            print("Eres menor de edad")
+        else:
+            print("Eres mayor de edad")
+        
+
+    def validar_identificacion(self,identificacion_valida):
+        if self.__identificacion == identificacion_valida:
+            print("La identifiación es valida")
+        else:
+            print("La identificación no es valida")
+
+        

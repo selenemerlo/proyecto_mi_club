@@ -23,4 +23,14 @@ class Club:
     def set_fecha(self, fecha_modificada):
         self.__fecha_fundacion = fecha_modificada
 
-    
+#nuevos metodos 30/6/26
+
+    def modificar_presidente(self,autoridades):
+        if autoridades != autoridades:
+            print("el presi a cambiado")
+
+    def antigüedad(self):
+        if self.__fecha_fundacion>50:
+            print("Es una institución histórica")
+        else:
+            print("Le faltan unos años más para ser histórica")

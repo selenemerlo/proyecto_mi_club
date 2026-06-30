@@ -12,7 +12,7 @@ class ClubCategoria(Club):
     def set_socios(self, socios_modificado):
         self.__socios = socios_modificado
 
-#metodos nuevos
+#metodos nuevos 29/6/26
     
     def mostrar_datos2 (self):
         for i in self.activiades:
@@ -34,4 +34,32 @@ class ClubCategoria(Club):
 
     def cantidad_socios_reg(self):
         for i in self.__socios.__len__:
-            print("la cantidad de socios registrados son: ",i)
+            print("La cantidad de socios registrados son: ",i)
+
+#metodos nuevos 30/6/26
+
+    def agregar_actividades(self,actividad_nueva):
+        self.__socios.append(actividad_nueva)
+
+    def mostrar_actividades(self):
+        print(f"Las actividades son: ",self.activiades)
+    
+    def eliminar_socios(self,socio_no_registrado):
+        self.__socios.pop(socio_no_registrado)
+
+    def buscar_socios(self,Enrique):
+        for i in self.__socios:
+            if i == Enrique:
+                print("Socio encontrado")
+                
+
+    def eliminar_actividades(self,actividad_no_disponible):
+        for i in self.activiades:
+            if i == actividad_no_disponible:
+                print("La actividad no se encuentra disponible temporalmente")
+
+
+    def porcentaje_socios(self,socios_registrados_activos):
+        for i in self.__socios:
+            if self.__socios == socios_registrados_activos:
+                print(self.__socios/socios_registrados_activos*1000)
