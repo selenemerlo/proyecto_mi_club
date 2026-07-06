@@ -40,10 +40,10 @@ class Persona:
 
 #Verificar que la identificación ingresada sea válida y no se encuentre vacía.
 
-    def edad_valida(self):
-        if self.edad == 0:
-            print("La numero ingresado no es valido")
+    def identificacion_valida(self):
+        if self.__identificacion == 8:
+            print("La identificacion ingresada no es valida")
         else:
-            print("El numero ingresado es valido")
+            print("LA identificacion ingresada es valida")
 
 
