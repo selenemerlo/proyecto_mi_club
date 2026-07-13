@@ -23,10 +23,25 @@ class Socio(Persona):
         self.__contrasenia = contrasenia_nueva
 
     
+#1-Permitir que un socio pueda asociarse a uno o más clubes.
+    
 
-#Permitir que un socio deje de pertenecer a un club determinado.
+
+
+
+#2-Permitir que un socio deje de pertenecer a un club determinado.
     def eliminar_de_club(self, usuario):
         self.lista_clubes.remove(usuario)
+
+
+
+
+#4-Registrar el pago de una cuota pendiente.
+
+    def
+
+
+
 
 
 #Cambiar el estado de un socio activo a suspendido cuando corresponda.

@@ -1,3 +1,5 @@
+from datetime import datetime
+
 class Cuotas:
     def __init__(self, estado, fecha_de_vencimiento, periodo):
         self.__estado = estado
@@ -11,7 +13,28 @@ class Cuotas:
         self.__estado = estado_modificado
         
 
+#Registrar una cuota como pagada.
+    def registrar_pago(self):
+        self.__estado = "pagado"
 
+#Determinar si una cuota se encuentra vencida comparando la fecha de vencimiento con la fecha actual.
+
+    def actualizar_estado(self):
+        self.__estado != "pagado" and datetime.now()> self.fecha_de_vencimiento
+        self.estado = "Vencida"
+        print("La cuota esta vencida")
+
+
+#Informar cuántos días faltan para el vencimiento de una cuota.  
+
+    def dias_faltantes(self):
+        ahora = datetime.now()
+
+        if ahora > self.fecha_de_vencimiento:
+            print("La cuota ya se vencio")
+
+        diferencia = self.fecha_de_vencimiento - ahora
+        print("faltan:", diferencia,"dias para el vencimiento de la cuota")
 
 
 #Actualizar automáticamente el estado de la cuota cuando corresponda.
@@ -22,6 +45,5 @@ class Cuotas:
 
 #Permitir la renovación de una cuota para un nuevo período.
 
-    def cuota_renovada(self, periodo_nuevo):
-        self.periodo = periodo_nuevo
-
+    def renovar_cuota(self, nuevo_periodo):
+        self.periodo = nuevo_periodo

@@ -29,7 +29,22 @@ class Club:
         presidente = presidente_modificado
 
 
-#Mostrar la antigüedad del club calculando los años transcurridos desde su fecha de fundación hasta la fecha actual.
+#Determinar si el club puede considerarse una institución histórica, entendiendo como tal a aquellas que tengan más de 50 años de existencia.
 
-    def anios_antiguedad(self):
-        
+
+from datetime import datetime
+
+
+anio_fundacion = 1903
+antiguedad = datetime.now().year - anio_fundacion
+
+if antiguedad > 50:
+    print("El club es historico")
+else:
+    print("El club no es historico")
+
+
+calc = 2026
+calc2 = 50
+
+print(calc- calc2)
