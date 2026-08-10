@@ -28,7 +28,7 @@ class Persona:
 
 
 
-#Determinar automáticamente si una persona es mayor o menor de edad.
+#1Determinar automáticamente si una persona es mayor o menor de edad.
     def edad_persona(self):
         if self.edad > 18:
             print("La persona es mayor de edad")
@@ -38,12 +38,13 @@ class Persona:
 
 
 
-#Verificar que la identificación ingresada sea válida y no se encuentre vacía.
+#2-Verificar que la identificación ingresada sea válida y no se encuentre vacía.
 
     def identificacion_valida(self):
         if self.__identificacion == 8:
             print("La identificacion ingresada no es valida")
         else:
-            print("LA identificacion ingresada es valida")
+            print("La identificacion ingresada es valida")
+            
 
 

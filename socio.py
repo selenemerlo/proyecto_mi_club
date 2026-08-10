@@ -1,3 +1,4 @@
+from datetime import datetime
 from persona import Persona
 
 class Socio(Persona):
@@ -24,9 +25,13 @@ class Socio(Persona):
 
     
 #1-Permitir que un socio pueda asociarse a uno o más clubes.
-    
-
-
+    def asociarse_club(self, club):
+        if club not in self.lista_clubes:
+            self.lista_clubes.append(club)
+            print("Socio asociado al club correctamente.")
+        else:
+            print("El socio ya está asociado a ese club.")
+          
 
 
 #2-Permitir que un socio deje de pertenecer a un club determinado.
@@ -34,17 +39,51 @@ class Socio(Persona):
         self.lista_clubes.remove(usuario)
 
 
+#3-Generar nuevas cuotas correspondientes a distintos períodos.
+    def generar_cuotas(self):
+        for periodo in self.lista_cuotas:
+            if periodo not in self.lista_cuotas:
+                nueva_cuota = {
+                "periodo": periodo,
+                "estado": "pendiente"
+            }
+            self.lista_cuotas.append(nueva_cuota)
+            print("Cuota generada para el período {periodo}.")
+
 
 
 #4-Registrar el pago de una cuota pendiente.
 
-    def
+    def registrar_pago_cuota(self):
+        for cuota in self.lista_cuotas:
+            if cuota["estado"] == "pendiente":
+                cuota["estado"] = "pagada"
+                print("La cuota se pago correctamente")
 
 
 
+#5-Informar si el socio posee deudas o cuotas sin abonar.
+
+    def tiene_deudas(self):
+        if len(self.lista_cuotas) > 0:
+            print("El socio posee cuotas sin abonar.")
+        else:
+            print("El socio no posee deudas registradas.")
 
 
-#Cambiar el estado de un socio activo a suspendido cuando corresponda.
+
+#6-Mostrar la cantidad de cuotas pendientes de pago.
+
+    def mostrar_cuotas_pendientes(self):
+        cantidad = 0
+        for cuota in self.lista_cuotas:
+            if cuota == "pendiente":
+                cantidad += 1
+            print(cantidad)
+
+
+
+#7-Cambiar el estado de un socio activo a suspendido cuando corresponda.
     def estado_socio(self):
         if self.estado == "activo":
                 self.estado = "suspendido"
@@ -54,7 +93,7 @@ class Socio(Persona):
 
 
 
-#Reactivar un socio suspendido para que pueda volver a utilizar los servicios del club.
+#8-Reactivar un socio suspendido para que pueda volver a utilizar los servicios del club.
 
     def reactivar_socio(self):
         if self.estado == "suspendido":
@@ -62,9 +101,16 @@ class Socio(Persona):
             print("El usario fue reactivado")
         
         
-#Permitir la actualización de la contraseña de acceso al sistema.
+#9-Permitir la actualización de la contraseña de acceso al sistema.
     def actualizar_contrasenia(self, contrasenia_nueva):
         self.__contrasenia = contrasenia_nueva
 
 
 
+#10-Verificar los datos de acceso ingresados por el socio al momento de iniciar sesión.
+
+    def verificar_acceso(self, usuario_ingresado, contrasenia_ingresada):
+        if self.__usuario == usuario_ingresado and self.__contrasenia == contrasenia_ingresada:
+            print("Acceso concedido.")
+        else:
+            print("Usuario o contraseña incorrectos.")

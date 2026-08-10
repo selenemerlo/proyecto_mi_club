@@ -1,3 +1,5 @@
+from datetime import datetime
+
 class Club:
     def __init__(self, nombre, descripcion, ubicacion, presidente, fecha_fundacion):
         self.nombre = nombre
@@ -23,28 +25,36 @@ class Club:
     def set_fecha(self, fecha_modificada):
         self.__fecha_fundacion = fecha_modificada
 
-#Permitir modificar el presidente del club cuando se produzca un cambio de autoridades.
+#1-Permitir modificar el presidente del club cuando se produzca un cambio de autoridades.
 
     def cambiar_presidente(self, presidente_modificado):
         presidente = presidente_modificado
 
 
-#Determinar si el club puede considerarse una institución histórica, entendiendo como tal a aquellas que tengan más de 50 años de existencia.
+#2-Mostrar la antigüedad del club calculando los años transcurridos desde su fecha de fundación hasta la fecha actual.
+
+    def mostrar_antiguedad(self):
+        hoy = datetime.today()
+
+        fecha_obj = datetime.strptime(self.get_fecha(), "%d/%m/%Y").date()
+        # Restamos los años
+        antiguedad = hoy.year - fecha_obj
+
+        # Ajustamos si todavía no cumplió años en el año actual
+        if (hoy.month, hoy.day) < ( fecha_obj.month, fecha_obj.day,):
+            antiguedad -= 1
+
+        print (f"La antigüedad del club {self.nombre} es de {antiguedad} años.")
 
 
-from datetime import datetime
 
 
-anio_fundacion = 1903
-antiguedad = datetime.now().year - anio_fundacion
+#3-Determinar si el club puede considerarse una institución histórica, entendiendo como tal a aquellas que tengan más de 50 años de existencia.
 
-if antiguedad > 50:
-    print("El club es historico")
-else:
-    print("El club no es historico")
+    def antiguedad(self):
+        antiguedad = datetime.now().year - self.get_fecha()
+        if antiguedad > 50:
+            print("El club es historico")
+        else:
+            print("El club no es historico")
 
-
-calc = 2026
-calc2 = 50
-
-print(calc- calc2)

@@ -28,44 +28,72 @@ class ClubCategoria(Club):
 
 
 
-#Incorporar la funcionalidad para registrar nuevos socios dentro de la categoría correspondiente.
+#1-Incorporar la funcionalidad para registrar nuevos socios dentro de la categoría correspondiente.
 
-    def registrar_socios(self, socios):
-        self.__socios.append(socios)
+    def registrar_socio(self, nombre, activo = True):
+        socio = {"nombre" : nombre, "activo": activo}
+        self.__socios.append(socio)
 
 
-#Permitir eliminar socios de la categoría cuando estos dejen de pertenecer a ella.
+#2-Permitir eliminar socios de la categoría cuando estos dejen de pertenecer a ella.
     def eliminar_socios(self, socio):
         self.__socios.remove(socio)
 
         
-#Implementar una búsqueda que permita localizar rápidamente un socio utilizando algún dato identificatorio.
+#3-Implementar una búsqueda que permita localizar rápidamente un socio utilizando algún dato identificatorio.
 
     def buscar_socio(self, socio):
         self.__socios.index(socio)
 
 
-#Obtener la cantidad total de socios registrados en la categoría.
+#4-Obtener la cantidad total de socios registrados en la categoría.
     def cantidad_socios(self):
         print("la cantidad de socios es: ", len(self.__socios))
 
-#Permitir agregar nuevas actividades deportivas, recreativas o culturales ofrecidas por el club.
+#5-Permitir agregar nuevas actividades deportivas, recreativas o culturales ofrecidas por el club.
     def agregar_actividad(self, actividad):
         self.activiades.append(actividad)
 
 
 
-#Permitir eliminar actividades que ya no se encuentren disponibles.
+#6-Permitir eliminar actividades que ya no se encuentren disponibles.
     def eliminar_actividad(self, actividad):
         self.activiades.remove(actividad)
 
 
-#Mostrar un listado completo de las actividades que se realizan en la categoría.
+#7-Mostrar un listado completo de las actividades que se realizan en la categoría.
     def listado_actividades(self):
         for i in self.activiades:
             print(i)
 
 
+#8-Calcular qué porcentaje de los socios registrados se encuentra actualmente en estado activo.
+
+    def porcentaje_socios_activos(self):
+        socios = self.get_socios()
         
+        if not socios:
+            return 0.0
+        
+
+        activos = sum(1 for socio in socios if socio.activo)
+  
+        porcentaje = (activos / len(socios)) * 100
+        return round(porcentaje, 2)
     
 
+
+
+
+#esto es de admin
+    def registrar_socios(self, nombre, activo=True):
+        socio = {"nombre": nombre, "activo": activo}
+        self.__socios.append(socio)
+
+    # Método de apoyo para poder suspender desde afuera sin exponer __socios
+    def suspender_socio(self, nombre):
+        for socio in self.__socios:
+            if socio["nombre"] == nombre:
+                socio["activo"] = False
+                return True
+        return False 
