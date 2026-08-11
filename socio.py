@@ -35,8 +35,11 @@ class Socio(Persona):
 
 
 #2-Permitir que un socio deje de pertenecer a un club determinado.
-    def eliminar_de_club(self, usuario):
-        self.lista_clubes.remove(usuario)
+    def eliminar_de_club(self, nombre):
+        for socio in self.__usuario:
+            if socio["nombre"] == nombre:
+                self.lista_clubes.remove(nombre)
+                print("El socio dejo de pertenecer a este club")
 
 
 #3-Generar nuevas cuotas correspondientes a distintos períodos.
@@ -45,8 +48,7 @@ class Socio(Persona):
             if periodo not in self.lista_cuotas:
                 nueva_cuota = {
                 "periodo": periodo,
-                "estado": "pendiente"
-            }
+                "estado": "pendiente"}
             self.lista_cuotas.append(nueva_cuota)
             print("Cuota generada para el período {periodo}.")
 
@@ -79,7 +81,7 @@ class Socio(Persona):
         for cuota in self.lista_cuotas:
             if cuota == "pendiente":
                 cantidad += 1
-            print(cantidad)
+            print(f"El socio tiene {cantidad} cuotas pendientes")
 
 
 

@@ -1,4 +1,4 @@
-from encapsulamiento.ejercicio1.club import Club
+from club import Club
 
 class ClubCategoria(Club):
     def __init__(self,  nombre, descripcion, ubicacion, presidente, fecha_fundacion):
@@ -9,9 +9,6 @@ class ClubCategoria(Club):
     def mostrar_datos2 (self):
         for i in self.activiades:
             print(i)
-            
-    def agregar_socio(self, socio):
-        self.__socios.append(socio)
 
     def agregar_actividades(self, actividad):
         self.activiades.append(actividad)
@@ -33,17 +30,27 @@ class ClubCategoria(Club):
     def registrar_socio(self, nombre, activo = True):
         socio = {"nombre" : nombre, "activo": activo}
         self.__socios.append(socio)
+        print(f"Socio {socio['nombre']} registrado correctamente")
 
 
 #2-Permitir eliminar socios de la categoría cuando estos dejen de pertenecer a ella.
-    def eliminar_socios(self, socio):
-        self.__socios.remove(socio)
-
+    def eliminar_socios(self, nombre): # eliminar el socio por el nombre
+        for socio in self.__socios:
+            if socio["nombre"] == nombre:
+                self.__socios.remove(socio)
+                print("El socio fue eliminado correctamente ")
+            else:
+                print("El socio no fue encontrado")
         
 #3-Implementar una búsqueda que permita localizar rápidamente un socio utilizando algún dato identificatorio.
 
-    def buscar_socio(self, socio):
-        self.__socios.index(socio)
+    def buscar_socio(self, nombre): # buscar el socio por el nombre
+        for socio in self.__socios:
+            if socio["nombre"] == nombre:
+                self.__socios.index(socio)
+                print("Socio encontrado")
+            else:
+                print("El socio no fue encontrado")
 
 
 #4-Obtener la cantidad total de socios registrados en la categoría.
@@ -71,29 +78,31 @@ class ClubCategoria(Club):
 
     def porcentaje_socios_activos(self):
         socios = self.get_socios()
-        
-        if not socios:
-            return 0.0
-        
-
-        activos = sum(1 for socio in socios if socio.activo)
-  
+        activos = 0
+        for socio in socios:
+            if socio["activo"] == True:
+                activos += 1  
         porcentaje = (activos / len(socios)) * 100
         return round(porcentaje, 2)
     
 
-
-
-
-#esto es de admin
-    def registrar_socios(self, nombre, activo=True):
-        socio = {"nombre": nombre, "activo": activo}
-        self.__socios.append(socio)
-
-    # Método de apoyo para poder suspender desde afuera sin exponer __socios
+ # Método de apoyo para poder suspender desde afuera sin exponer __socios
     def suspender_socio(self, nombre):
         for socio in self.__socios:
             if socio["nombre"] == nombre:
                 socio["activo"] = False
-                return True
-        return False 
+                print(f"El socio {nombre}, esta suspendido")
+        print(f"El socio {nombre}, ya estaba suspendido")
+    
+
+boca = ClubCategoria("Boca Juniors","Xeneizes", "La boca", "Riquelme","03/04/1905")
+boca.registrar_socio("Selene")
+boca.registrar_socio("Martin")
+boca.registrar_socio("Isaias")
+boca.registrar_socio("Chango")
+boca.registrar_socio("Bubu")
+
+boca.suspender_socio("Bubu")
+
+print(boca.porcentaje_socios_activos())
+boca.mostrar_info()

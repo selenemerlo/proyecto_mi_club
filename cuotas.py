@@ -16,6 +16,7 @@ class Cuotas:
 #1-Registrar una cuota como pagada.
     def registrar_pago(self):
         self.__estado = "pagado"
+        print("La cuota fue pagada correctamente")
 
 #2-Determinar si una cuota se encuentra vencida comparando la fecha de vencimiento con la fecha actual.
 
@@ -41,9 +42,6 @@ class Cuotas:
 
         diferencia = self.fecha_de_vencimiento - ahora
         print("faltan:", diferencia,"dias para el vencimiento de la cuota")
-
-
-
 
 #5-Permitir la renovación de una cuota para un nuevo período.
 

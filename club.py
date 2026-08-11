@@ -29,6 +29,7 @@ class Club:
 
     def cambiar_presidente(self, presidente_modificado):
         presidente = presidente_modificado
+        
 
 
 #2-Mostrar la antigüedad del club calculando los años transcurridos desde su fecha de fundación hasta la fecha actual.
@@ -36,7 +37,7 @@ class Club:
     def mostrar_antiguedad(self):
         hoy = datetime.today()
 
-        fecha_obj = datetime.strptime(self.get_fecha(), "%d/%m/%Y").date()
+        fecha_obj = datetime.strptime(self.get_fecha(), "%d/%m/%Y").date()#el strtime lo que hace es pasar la fecha numerica a str(texto) y da formato dia/mes/año
         # Restamos los años
         antiguedad = hoy.year - fecha_obj
 

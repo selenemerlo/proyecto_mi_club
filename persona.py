@@ -28,7 +28,7 @@ class Persona:
 
 
 
-#1Determinar automáticamente si una persona es mayor o menor de edad.
+#1-Determinar automáticamente si una persona es mayor o menor de edad.
     def edad_persona(self):
         if self.edad > 18:
             print("La persona es mayor de edad")
