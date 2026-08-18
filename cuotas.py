@@ -6,11 +6,11 @@ class Cuotas:
         self.fecha_de_vencimiento = fecha_de_vencimiento
         self.periodo = periodo
 
-
-    def get_estado (self):
-        return self.__estado
     def set_estado (self, estado_modificado):
         self.__estado = estado_modificado
+    def get_estado (self):
+        return self.__estado
+
         
 
 #1-Registrar una cuota como pagada.
@@ -47,3 +47,11 @@ class Cuotas:
 
     def renovar_cuota(self, nuevo_periodo):
         self.periodo = nuevo_periodo
+
+
+
+
+cuotita = Cuotas("activo","12/10/2026","mensual")
+cuotita.registrar_pago()
+cuotita.actualizar_estado()
+print(cuotita.get_estado())

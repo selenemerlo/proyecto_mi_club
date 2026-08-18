@@ -60,8 +60,4 @@ class Administrador(ClubCategoria):
         
 
 
-
-sociocito = Administrador("selene", "sel_yaz", "goku123", "Boca Juniors","Xeneizes", "La boca", "Riquelme","03/04/1905")
-sociocito.registrar_socios("selene")
-print(sociocito.suspender_socio("selene"))
-sociocito.reactivar_socio("selene")
+Administradorcito = Administrador("sele","selayz","martinnegro","selene","ns","La Boca","03/04/1905")

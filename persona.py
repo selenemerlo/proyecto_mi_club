@@ -1,6 +1,5 @@
 class Persona:
     def __init__(self, nombre_completo, edad, tipo_identificacion, identificacion, nacionalidad):
-
         self.nombre_completo = nombre_completo
         self.edad = edad
         self.__tipo_identificacion = tipo_identificacion
@@ -41,10 +40,13 @@ class Persona:
 #2-Verificar que la identificación ingresada sea válida y no se encuentre vacía.
 
     def identificacion_valida(self):
-        if self.__identificacion == 8:
+        if self.get_identificacion() == 8:
             print("La identificacion ingresada no es valida")
         else:
             print("La identificacion ingresada es valida")
             
 
 
+selene = Persona("Selene Yazmin Merlo",16, "DNI","50453246","Argentina")
+selene.edad_persona()
+selene.identificacion_valida()

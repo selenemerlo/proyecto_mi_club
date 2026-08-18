@@ -1,9 +1,8 @@
-from datetime import datetime
 from persona import Persona
 
 class Socio(Persona):
-    def __init__(self, fecha_inscripcion, estado, usuario, contrasenia, nombre_completo, edad, tipo_identificacion, identificacion, nacionalidad):
-        super().__init__(self, nombre_completo, edad, tipo_identificacion, identificacion, nacionalidad)
+    def __init__(self,nombre_completo, edad, tipo_identificacion, identificacion, nacionalidad,fecha_inscripcion, estado, usuario, contrasenia):
+        super().__init__(nombre_completo, edad, tipo_identificacion, identificacion, nacionalidad)
         self.lista_clubes = []
         self.lista_cuotas = []
         self.fecha_inscripcion = fecha_inscripcion
@@ -36,8 +35,8 @@ class Socio(Persona):
 
 #2-Permitir que un socio deje de pertenecer a un club determinado.
     def eliminar_de_club(self, nombre):
-        for socio in self.__usuario:
-            if socio["nombre"] == nombre:
+        for socio in self.lista_clubes:
+            if socio == nombre:
                 self.lista_clubes.remove(nombre)
                 print("El socio dejo de pertenecer a este club")
 
@@ -116,3 +115,10 @@ class Socio(Persona):
             print("Acceso concedido.")
         else:
             print("Usuario o contraseña incorrectos.")
+
+
+
+sociocito = Socio("Ezequiel",28,"DNI", "48876982","Argentino","12/05/2024","activo","welquito","goku123")
+sociocito.asociarse_club("San Lorenzo")
+print(sociocito.eliminar_de_club("Ezequiel"))
+
