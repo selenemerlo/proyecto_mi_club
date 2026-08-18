@@ -60,4 +60,4 @@ class Administrador(ClubCategoria):
         
 
 
-Administradorcito = Administrador("sele","selayz","martinnegro","selene","ns","La Boca","03/04/1905")
+

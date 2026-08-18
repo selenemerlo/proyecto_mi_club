@@ -122,3 +122,4 @@ sociocito = Socio("Ezequiel",28,"DNI", "48876982","Argentino","12/05/2024","acti
 sociocito.asociarse_club("San Lorenzo")
 print(sociocito.eliminar_de_club("Ezequiel"))
 
+
