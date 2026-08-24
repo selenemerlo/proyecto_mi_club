@@ -1,4 +1,5 @@
 from persona import Persona
+from datetime import date, timedelta
 
 class Socio(Persona):
     def __init__(self,nombre_completo, edad, tipo_identificacion, identificacion, nacionalidad,fecha_inscripcion, estado, usuario, contrasenia):
@@ -16,11 +17,11 @@ class Socio(Persona):
     def set_usuario (self, usuario_nuevo):
         self.__usuario = usuario_nuevo
 
-
-    def get_contrasenia(self):
-        return self.__contrasenia
     def set_contrasenia(self, contrasenia_nueva):
         self.__contrasenia = contrasenia_nueva
+    def get_contrasenia(self):
+        return self.__contrasenia
+
 
     
 #1-Permitir que un socio pueda asociarse a uno o más clubes.
@@ -39,17 +40,24 @@ class Socio(Persona):
             if socio == nombre:
                 self.lista_clubes.remove(nombre)
                 print("El socio dejo de pertenecer a este club")
+            else:
+                print("El socio no esta en la lista")
+
 
 
 #3-Generar nuevas cuotas correspondientes a distintos períodos.
     def generar_cuotas(self):
-        for periodo in self.lista_cuotas:
-            if periodo not in self.lista_cuotas:
-                nueva_cuota = {
-                "periodo": periodo,
-                "estado": "pendiente"}
-            self.lista_cuotas.append(nueva_cuota)
-            print("Cuota generada para el período {periodo}.")
+        fecha_actual = date.today()
+        fecha_vencimiento = fecha_actual + timedelta(days=30)
+
+        nueva_cuota = {
+            "fecha_actual": fecha_actual,
+            "fecha_vencimiento": fecha_vencimiento,
+            "pendiente": True
+        }
+
+        self.lista_cuotas.append(nueva_cuota)
+        print(f"Cuota generada. Vence el {fecha_vencimiento}.")
 
 
 
@@ -57,9 +65,11 @@ class Socio(Persona):
 
     def registrar_pago_cuota(self):
         for cuota in self.lista_cuotas:
-            if cuota["estado"] == "pendiente":
-                cuota["estado"] = "pagada"
+            if cuota == "pendiente":
+                cuota = "pagada"
                 print("La cuota se pago correctamente")
+            else:
+                print("No hay cuotas pendientes")
 
 
 
@@ -111,15 +121,24 @@ class Socio(Persona):
 #10-Verificar los datos de acceso ingresados por el socio al momento de iniciar sesión.
 
     def verificar_acceso(self, usuario_ingresado, contrasenia_ingresada):
-        if self.__usuario == usuario_ingresado and self.__contrasenia == contrasenia_ingresada:
+        if get__usuario() == usuario_ingresado and get__contrasenia() == contrasenia_ingresada:
             print("Acceso concedido.")
         else:
             print("Usuario o contraseña incorrectos.")
 
 
 
-sociocito = Socio("Ezequiel",28,"DNI", "48876982","Argentino","12/05/2024","activo","welquito","goku123")
+sociocito = Socio("Ezequiel",28,"DNI", "48876982","Argentino","12/05/2024","activo","welco","goku123")
 sociocito.asociarse_club("San Lorenzo")
-print(sociocito.eliminar_de_club("Ezequiel"))
+sociocito.eliminar_de_club("Ezequiel")
+sociocito.generar_cuotas()
+sociocito.registrar_pago_cuota()
+sociocito.tiene_deudas()
+sociocito.mostrar_cuotas_pendientes()
+sociocito.estado_socio()
+sociocito.reactivar_socio()
+sociocito.set_contrasenia("123456")
+sociocito.verificar_acceso("welco", "goku123")#no anda
+
 
 

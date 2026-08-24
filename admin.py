@@ -60,4 +60,5 @@ class Administrador(ClubCategoria):
         
 
 
-
+admincito = Administrador("patricio", "hank", "12456", "Enrique", "colores horrible, aguante atletico ", "la basura", "roman", "3/05/19")
+admincito.registrar_socios("iango","true")

@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, date
 
 class Club:
     def __init__(self, nombre, descripcion, ubicacion, presidente, fecha_fundacion):
@@ -37,7 +37,7 @@ class Club:
     def mostrar_antiguedad(self):
         hoy = datetime.today()
         fecha_obj = datetime.strptime(self.get_fecha(), "%d/%m/%Y").date()#el strtime 
-        antiguedad = hoy.year - fecha_obj
+        antiguedad = hoy.year - fecha_obj.year
 
         # Ajustamos si todavía no cumplió años en el año actual
         if (hoy.month, hoy.day) < ( fecha_obj.month, fecha_obj.day,):
@@ -46,16 +46,16 @@ class Club:
         print (f"La antigüedad del club {self.nombre} es de {antiguedad} años.")
 
 
-
 #3-Determinar si el club puede considerarse una institución histórica, entendiendo como tal a aquellas que tengan más de 50 años de existencia.
-
     def antiguedad(self):
-        antiguedad = datetime.now().year - self.get_fecha()
-        if antiguedad > 50:
-            print("El club es historico")
-        else:
-            print("El club no es historico")
+        fecha_fundacion = datetime.strptime(self.get_fecha(), "%d/%m/%Y").date()
+        hoy = date.today()
+        cantidad_anios = hoy.year - fecha_fundacion.year
 
+        if cantidad_anios > 50:
+            print("El club es histórico")
+        else:
+            print("El club no es histórico")
 
 
 
@@ -65,3 +65,5 @@ boca.set_presidente("Macri")
 print(boca.get_presidente())
 #2
 boca.mostrar_antiguedad()
+#3
+boca.antiguedad()#no anda

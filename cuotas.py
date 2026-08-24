@@ -39,7 +39,6 @@ class Cuotas:
 
         if ahora > self.fecha_de_vencimiento:
             print("La cuota ya se vencio")
-
         diferencia = self.fecha_de_vencimiento - ahora
         print("faltan:", diferencia,"dias para el vencimiento de la cuota")
 
@@ -52,6 +51,13 @@ class Cuotas:
 
 
 cuotita = Cuotas("activo","12/10/2026","mensual")
+#1
 cuotita.registrar_pago()
+#2
 cuotita.actualizar_estado()
+#3
 print(cuotita.get_estado())
+#4
+cuotita.dias_faltantes()#no anda
+#5
+print(cuotita.renovar_cuota())

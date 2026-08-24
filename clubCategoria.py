@@ -60,18 +60,23 @@ class ClubCategoria(Club):
 #5-Permitir agregar nuevas actividades deportivas, recreativas o culturales ofrecidas por el club.
     def agregar_actividad(self, actividad):
         self.activiades.append(actividad)
+        print("Se agrego el actividad",actividad)
 
 
 
 #6-Permitir eliminar actividades que ya no se encuentren disponibles.
     def eliminar_actividad(self, actividad):
         self.activiades.remove(actividad)
+        print("Se elimino la actividad", actividad)
 
 
 #7-Mostrar un listado completo de las actividades que se realizan en la categoría.
     def listado_actividades(self):
         for i in self.activiades:
-            print(i)
+            print("Listado:",i)
+        else:
+            print("No hay actividades")
+
 
 
 #8-Calcular qué porcentaje de los socios registrados se encuentra actualmente en estado activo.
@@ -96,13 +101,13 @@ class ClubCategoria(Club):
     
 
 boca = ClubCategoria("Boca Juniors","Xeneizes", "La boca", "Riquelme","03/04/1905")
-boca.registrar_socio("Selene")
-boca.registrar_socio("Martin")
-boca.registrar_socio("Isaias")
-boca.registrar_socio("Chango")
 boca.registrar_socio("Bubu")
-
 boca.suspender_socio("Bubu")
-
 print(boca.porcentaje_socios_activos())
-boca.mostrar_info()
+boca.buscar_socio("Bubu")
+boca.cantidad_socios()
+boca.agregar_actividad("Handball")
+boca.eliminar_actividad("Handball")
+boca.listado_actividades()
+boca.porcentaje_socios_activos()#este no funciona
+boca. suspender_socio("Bubu")
