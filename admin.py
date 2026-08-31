@@ -32,7 +32,7 @@ class Administrador(ClubCategoria):
 
 #3-Reactivar socios previamente suspendidos.
     def reactivar_socio(self, nombre):
-        for socio in self.__socios:
+        for socio in self.get_socios():
             if socio["nombre"] == nombre:
                 socio["activo"] = True
                 print(f"El socio {nombre}, fue reactivado")
@@ -41,12 +41,16 @@ class Administrador(ClubCategoria):
 
 
 #4-Obtener un listado completo de los socios pertenecientes a un club.
-    def listar_socios(self, club_categoria):
-        socios = ClubCategoria.mostrar_socios()
+    def listar_socios(self):
+        socios = self.get_socios()
         if not socios:
             print(f"La categoría '{ClubCategoria.nombre}' no tiene socios registrados.")
             return socios
 
+        for socio in socios:
+            print(socio)
+    
+        return socios
 
 #5-Verificar las credenciales de acceso del administrador.
 
@@ -60,4 +64,14 @@ class Administrador(ClubCategoria):
         
 
 
-
+admincito = Administrador("patricio", "hank", "12456", "Enrique", "colores horrible, aguante atletico ", "la basura", "roman", "3/05/19")
+#1
+admincito.registrar_socios("iango","true")
+#2
+admincito.suspender_socio("iango")
+#3
+admincito.reactivar_socio("iango")
+#4
+admincito.listar_socios()
+#5
+admincito.verificar_credenciales("hank","12456")

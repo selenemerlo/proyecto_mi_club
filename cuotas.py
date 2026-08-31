@@ -36,22 +36,29 @@ class Cuotas:
 
     def dias_faltantes(self):
         ahora = datetime.now()
+        vencimiento = datetime.strptime(self.fecha_de_vencimiento, "%d/%m/%Y")
 
-        if ahora > self.fecha_de_vencimiento:
+        if ahora > vencimiento:
             print("La cuota ya se vencio")
-
-        diferencia = self.fecha_de_vencimiento - ahora
-        print("faltan:", diferencia,"dias para el vencimiento de la cuota")
+        diferencia = vencimiento - ahora
+        print("faltan:", diferencia.days,"dias para el vencimiento de la cuota")
 
 #5-Permitir la renovación de una cuota para un nuevo período.
 
     def renovar_cuota(self, nuevo_periodo):
         self.periodo = nuevo_periodo
+        print("Se modifico el periodo a:", nuevo_periodo)
 
 
 
-
-cuotita = Cuotas("activo","12/10/2026","mensual")
+cuotita = Cuotas("activo","12/10/2026",30)
+#1
 cuotita.registrar_pago()
+#2
 cuotita.actualizar_estado()
+#3
 print(cuotita.get_estado())
+#4
+cuotita.dias_faltantes()
+#5
+cuotita.renovar_cuota(15)
