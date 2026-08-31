@@ -91,7 +91,7 @@ class ClubCategoria(Club):
         return round(porcentaje, 2)
     
 
- # Método de apoyo para poder suspender desde afuera sin exponer __socios
+ #9 Método de apoyo para poder suspender desde afuera sin exponer __socios
     def suspender_socio(self, nombre):
         for socio in self.__socios:
             if socio["nombre"] == nombre:
@@ -101,13 +101,23 @@ class ClubCategoria(Club):
     
 
 boca = ClubCategoria("Boca Juniors","Xeneizes", "La boca", "Riquelme","03/04/1905")
+#1
 boca.registrar_socio("Bubu")
+#2
 boca.suspender_socio("Bubu")
+#3
 print(boca.porcentaje_socios_activos())
+#4
 boca.buscar_socio("Bubu")
+#5
 boca.cantidad_socios()
+#6
 boca.agregar_actividad("Handball")
+#7
 boca.eliminar_actividad("Handball")
+#8
 boca.listado_actividades()
-boca.porcentaje_socios_activos()#este no funciona
-boca. suspender_socio("Bubu")
+#9
+print(boca.porcentaje_socios_activos())
+#10
+boca.suspender_socio("Bubu")

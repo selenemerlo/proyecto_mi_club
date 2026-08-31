@@ -121,7 +121,7 @@ class Socio(Persona):
 #10-Verificar los datos de acceso ingresados por el socio al momento de iniciar sesión.
 
     def verificar_acceso(self, usuario_ingresado, contrasenia_ingresada):
-        if get__usuario() == usuario_ingresado and get__contrasenia() == contrasenia_ingresada:
+        if self.get_usuario() == usuario_ingresado and self.get_contrasenia() == contrasenia_ingresada:
             print("Acceso concedido.")
         else:
             print("Usuario o contraseña incorrectos.")
@@ -129,16 +129,27 @@ class Socio(Persona):
 
 
 sociocito = Socio("Ezequiel",28,"DNI", "48876982","Argentino","12/05/2024","activo","welco","goku123")
+#1
+sociocito.verificar_acceso("welco", "goku123")
+#2
 sociocito.asociarse_club("San Lorenzo")
+#3
 sociocito.eliminar_de_club("Ezequiel")
+#4
 sociocito.generar_cuotas()
+#5
 sociocito.registrar_pago_cuota()
+#6
 sociocito.tiene_deudas()
+#7
 sociocito.mostrar_cuotas_pendientes()
+#8
 sociocito.estado_socio()
+#9
 sociocito.reactivar_socio()
+#10
 sociocito.set_contrasenia("123456")
-sociocito.verificar_acceso("welco", "goku123")#no anda
+
 
 
 

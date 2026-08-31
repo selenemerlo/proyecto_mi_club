@@ -66,4 +66,4 @@ print(boca.get_presidente())
 #2
 boca.mostrar_antiguedad()
 #3
-boca.antiguedad()#no anda
+boca.antiguedad()

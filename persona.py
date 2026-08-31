@@ -48,5 +48,7 @@ class Persona:
 
 
 selene = Persona("Selene Yazmin Merlo",16, "DNI","50453246","Argentina")
+#1
 selene.edad_persona()
+#2
 selene.identificacion_valida()
