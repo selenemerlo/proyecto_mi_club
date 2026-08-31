@@ -7,8 +7,7 @@ class Persona:
         self.__nacionalidad = nacionalidad
 
     
-    def mostrar_datos(self):
-        return f'nombre:{self.nombre_completo}, edad de la persona:{self.edad}, tipo de identicacion: {self.get_tipo_identificacion()}, identifacion:{self.get_identificacion()}, nacionalidad{self.get_nacionalidad()}'
+
     
     def get_tipo_identificacion(self):
         return self.__tipo_identificacion
@@ -25,25 +24,29 @@ class Persona:
     def set_nacionalidad(self, nacionalidad_modificada):
         self.__nacionalidad = nacionalidad_modificada
 
+    def mostrar_datos(self):
+        return f'nombre:{self.nombre_completo}, edad de la persona:{self.edad}, tipo de identicacion: {self.get_tipo_identificacion()}, identifacion:{self.get_identificacion()}, nacionalidad{self.get_nacionalidad()}'
+
+
 
 
 #1-Determinar automáticamente si una persona es mayor o menor de edad.
     def edad_persona(self):
-        if self.edad > 18:
-            print("La persona es mayor de edad")
+        if self.edad >= 18:
+            print(f"{self.nombre_completo} es mayor de edad")
 
         else:
-            print("La persona es menor de edad")
+            print(f"{self.nombre_completo} es menor de edad")
 
 
 
 #2-Verificar que la identificación ingresada sea válida y no se encuentre vacía.
 
     def identificacion_valida(self):
-        if self.get_identificacion() == 8:
-            print("La identificacion ingresada no es valida")
-        else:
+        if len(self.get_identificacion())>=7 and len(self.get_identificacion())<= 8:
             print("La identificacion ingresada es valida")
+        else:
+            print("La identificacion ingresada no es valida")
             
 
 

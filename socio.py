@@ -76,7 +76,7 @@ class Socio(Persona):
 #5-Informar si el socio posee deudas o cuotas sin abonar.
 
     def tiene_deudas(self):
-        if len(self.lista_cuotas) > 0:
+        if len(self.lista_cuotas) > 0:#verificar la clave estado para saber si la cuota esta pendiente o vencida
             print("El socio posee cuotas sin abonar.")
         else:
             print("El socio no posee deudas registradas.")

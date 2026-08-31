@@ -8,10 +8,7 @@ class Club:
         self.__presidente = presidente #atributo privado
         self.__fecha_fundacion = fecha_fundacion #atributo privado
 
-    
-    def mostrar_info (self):
-        return f'El nombre del club es {self.nombre},{self.descripcion}, esta ubicado en {self.ubicacion},el presidente del club es {self.__presidente}, y el club fue fundado en {self.__fecha_fundacion}'
-    
+
 
     #get y set de presidente
     def set_presidente(self, presidente_modificado):#modifica el valor
@@ -26,10 +23,8 @@ class Club:
     def set_fecha(self, fecha_modificada):
         self.__fecha_fundacion = fecha_modificada
 
-#1-Permitir modificar el presidente del club cuando se produzca un cambio de autoridades.
-
-    def cambiar_presidente(self, presidente_modificado):
-        presidente = presidente_modificado
+    def mostrar_info (self):
+        return f'El nombre del club es {self.nombre},{self.descripcion}, esta ubicado en {self.ubicacion},el presidente del club es {self.__presidente}, y el club fue fundado en {self.__fecha_fundacion}'
         
 
 #2-Mostrar la antigüedad del club calculando los años transcurridos desde su fecha de fundación hasta la fecha actual.
