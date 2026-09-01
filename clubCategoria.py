@@ -6,23 +6,22 @@ class ClubCategoria(Club):
         self.__socios = []
         self.activiades = []
 
-    def mostrar_datos2 (self):
-        for i in self.activiades:
-            print(i)
-
-    def agregar_actividades(self, actividad):
-        self.activiades.append(actividad)
-
-
-    def mostrar_socios(self):
-        for i in self.__socios:
-            print(i)
 
     def get_socios(self):
         return self.__socios
     def set_socios(self, socios_modificado):
         self.__socios = socios_modificado
 
+    def agregar_actividades(self, actividad):
+        self.activiades.append(actividad)
+
+    def mostrar_socios(self):
+        for i in self.__socios:
+            print(i)
+
+    def mostrar_actividades (self):
+        for i in self.activiades:
+            print(i)
 
 
 #1-Incorporar la funcionalidad para registrar nuevos socios dentro de la categoría correspondiente.
@@ -59,7 +58,7 @@ class ClubCategoria(Club):
 
 #5-Permitir agregar nuevas actividades deportivas, recreativas o culturales ofrecidas por el club.
     def agregar_actividad(self, actividad):
-        self.activiades.append(actividad)
+        self.activiades.append(actividad)#agregar if not de actividades
         print("Se agrego el actividad",actividad)
 
 
@@ -88,10 +87,10 @@ class ClubCategoria(Club):
             if socio["activo"] == True:
                 activos += 1  
         porcentaje = (activos / len(socios)) * 100
-        return round(porcentaje, 2)
+        return round(porcentaje, 2)#falta print de si no hay socios en la lista eñ porcentaje es 0, round redondeo numero periodico
     
 
- #9 Método de apoyo para poder suspender desde afuera sin exponer __socios
+#9 Método de apoyo para poder suspender desde afuera sin exponer __socios
     def suspender_socio(self, nombre):
         for socio in self.__socios:
             if socio["nombre"] == nombre:

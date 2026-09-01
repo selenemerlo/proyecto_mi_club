@@ -36,8 +36,8 @@ class Administrador(ClubCategoria):
             if socio["nombre"] == nombre:
                 socio["activo"] = True
                 print(f"El socio {nombre}, fue reactivado")
-            else: 
-                print(f"El socio {nombre}, ya estaba acivo")
+               else: 
+        print(f"El socio {nombre}, ya estaba acivo")
 
 
 
