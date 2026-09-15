@@ -25,4 +25,3 @@ Yair = Socio(
 guardar_socio(conexion, Yair)
 print("Socio guardado correctamente en la base de datos.")
 
-conexion.close()

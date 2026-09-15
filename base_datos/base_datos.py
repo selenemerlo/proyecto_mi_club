@@ -6,7 +6,7 @@ def conectar(ruta):
     conexion = sqlite3.connect(ruta)
     return conexion
 
-def crear_tablas(conexion):
+def crear_tablas_socio(conexion):
     """Crea las tablas necesarias si no existen."""
     cursor = conexion.cursor()
     cursor.execute("""
@@ -48,3 +48,73 @@ def guardar_socio(conexion, socio):
         socio.rol
     ))
     conexion.commit()
+
+
+
+
+def crear_tabla_cuota(conexion):
+    """Crea las tablas necesarias si no existen."""
+    cursor = conexion.cursor()
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS socios (
+            id  INTEGER PRIMARY KEY AUTOINCREMENT,
+            socio_id  INTEGER NOT NULL,
+            estado TEXT NOT DEFAULT 'pendiente',
+            fecha_de_vencimiento TEXT,
+            periodo TEXT NOT NULL
+        )
+    """)
+    conexion.commit()
+
+
+def guardar_cuota(conexion, usuario, cuota):
+   
+    cursor = conexion.cursor()
+    cursor.execute("SELECT id FROM socios WHERE usuario = ?", (usuario,))
+    fila = cursor.fetchone()
+    if fila is None:
+        raise ValueError("El socio no existe")
+
+    socio_id = fila[0]
+
+    cursor.execute("""
+        INSERT INTO cuota (id, socio_id ,estado, fecha_de_vencimiento, periodo )
+        VALUES (?, ?, ?, ?, ?)
+    ..."""),(
+        cuota.id,
+        cuota.socio_id,
+        cuota.estado,
+        cuota.fecha_de_vencimiento,
+        cuota.periodo
+    )
+    conexion.commit()
+
+
+
+def listar_cuotas_de_socio(conexion, usuario):
+    """Devuelve una lista de objetos Cuota para el socio con ese usuario."""
+    cursor = conexion.cursor()
+
+    cursor.execute("SELECT id FROM socios WHERE usuario = ?", (usuario,))
+    fila = cursor.fetchone()
+    if fila is None:
+        return []
+
+    socio_id = fila[0]
+
+        # Traer todas las cuotas de ese socio
+    cursor.execute(
+        "SELECT periodo, estado, fecha_vencimiento FROM cuotas WHERE socio_id = ?",
+        (socio_id,)
+    )
+
+
+    from datetime import date
+    from modelo.cuota import Cuota
+
+    cuotas = []
+    for periodo, estado, fecha_vencimiento in cursor.fetchall():
+        cuota = cuota(estado, date.fromisoformat(fecha_vencimiento), periodo)
+        cuotas.append(cuota)
+    return cuotas
+
