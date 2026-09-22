@@ -1,4 +1,7 @@
 import sqlite3
+from datetime import date
+from modelo.cuota import Cuotas
+
 
 def conectar(ruta):
     """Abre una conexión a la base de datos en la ruta indicada.
@@ -6,7 +9,7 @@ def conectar(ruta):
     conexion = sqlite3.connect(ruta)
     return conexion
 
-def crear_tablas_socio(conexion):
+def crear_tablas(conexion):
     """Crea las tablas necesarias si no existen."""
     cursor = conexion.cursor()
     cursor.execute("""
@@ -22,6 +25,19 @@ def crear_tablas_socio(conexion):
             rol                 TEXT DEFAULT 'socio',
             usuario             TEXT UNIQUE NOT NULL,
             contrasenia         TEXT NOT NULL
+        )
+    """)
+    conexion.commit()
+
+    """Crea las tablas necesarias si no existen."""
+    cursor = conexion.cursor()
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS cuotas (
+            id  INTEGER PRIMARY KEY AUTOINCREMENT,
+            socio_id  INTEGER NOT NULL,
+            estado TEXT DEFAULT 'pendiente',
+            fecha_de_vencimiento TEXT,
+            periodo TEXT NOT NULL
         )
     """)
     conexion.commit()
@@ -43,32 +59,15 @@ def guardar_socio(conexion, socio):
         socio.get_nacionalidad(),
         socio.fecha_inscripcion.isoformat(),
         socio.estado,
+        socio.rol,
         socio.get_usuario(),
-        socio.get_contrasenia(),
-        socio.rol
+        socio.get_contrasenia()
     ))
     conexion.commit()
 
 
 
-
-def crear_tabla_cuota(conexion):
-    """Crea las tablas necesarias si no existen."""
-    cursor = conexion.cursor()
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS socios (
-            id  INTEGER PRIMARY KEY AUTOINCREMENT,
-            socio_id  INTEGER NOT NULL,
-            estado TEXT NOT DEFAULT 'pendiente',
-            fecha_de_vencimiento TEXT,
-            periodo TEXT NOT NULL
-        )
-    """)
-    conexion.commit()
-
-
 def guardar_cuota(conexion, usuario, cuota):
-   
     cursor = conexion.cursor()
     cursor.execute("SELECT id FROM socios WHERE usuario = ?", (usuario,))
     fila = cursor.fetchone()
@@ -78,15 +77,15 @@ def guardar_cuota(conexion, usuario, cuota):
     socio_id = fila[0]
 
     cursor.execute("""
-        INSERT INTO cuota (id, socio_id ,estado, fecha_de_vencimiento, periodo )
+        INSERT INTO cuotas (id, socio_id ,estado, fecha_de_vencimiento, periodo )
         VALUES (?, ?, ?, ?, ?)
-    ..."""),(
+    ...""",(
         cuota.id,
         cuota.socio_id,
         cuota.estado,
         cuota.fecha_de_vencimiento,
         cuota.periodo
-    )
+    ))
     conexion.commit()
 
 
@@ -108,13 +107,9 @@ def listar_cuotas_de_socio(conexion, usuario):
         (socio_id,)
     )
 
-
-    from datetime import date
-    from modelo.cuota import Cuota
-
     cuotas = []
     for periodo, estado, fecha_vencimiento in cursor.fetchall():
-        cuota = cuota(estado, date.fromisoformat(fecha_vencimiento), periodo)
+        cuota = Cuotas(estado, date.fromisoformat(fecha_vencimiento), periodo)
         cuotas.append(cuota)
     return cuotas
 
