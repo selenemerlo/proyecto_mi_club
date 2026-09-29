@@ -67,9 +67,9 @@ def guardar_socio(conexion, socio):
 
 
 
-def guardar_cuota(conexion, usuario, cuota):
+def guardar_cuota(conexion, socio, cuota):
     cursor = conexion.cursor()
-    cursor.execute("SELECT id FROM socios WHERE usuario = ?", (usuario,))
+    cursor.execute("SELECT id FROM socios WHERE usuario = ?", (socio.get_usuario(),))
     fila = cursor.fetchone()
     if fila is None:
         raise ValueError("El socio no existe")
@@ -77,12 +77,11 @@ def guardar_cuota(conexion, usuario, cuota):
     socio_id = fila[0]
 
     cursor.execute("""
-        INSERT INTO cuotas (id, socio_id ,estado, fecha_de_vencimiento, periodo )
-        VALUES (?, ?, ?, ?, ?)
-    ...""",(
-        cuota.id,
-        cuota.socio_id,
-        cuota.estado,
+        INSERT INTO cuotas (socio_id, estado, fecha_de_vencimiento, periodo)
+        VALUES (?, ?, ?, ?)
+    """, (
+        socio_id,
+        cuota.get_estado(),
         cuota.fecha_de_vencimiento,
         cuota.periodo
     ))
