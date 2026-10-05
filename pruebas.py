@@ -25,9 +25,6 @@ Bubu = Socio(
 
 
 
-
-
-
 RUTA = Path(__file__).parent / "club.db"
 
 conexion = conectar(str(RUTA))

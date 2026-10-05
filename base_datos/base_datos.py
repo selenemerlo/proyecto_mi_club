@@ -1,6 +1,8 @@
 import sqlite3
 from datetime import date
 from modelo.cuota import Cuotas
+from modelo.socio import Socio
+from modelo.club import Club
 
 
 def conectar(ruta):
@@ -41,6 +43,31 @@ def crear_tablas(conexion):
         )
     """)
     conexion.commit()
+    """Crea las tablas necesarias si no existen."""
+    cursor = conexion.cursor()
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS clubes (
+            club_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nombre TEXT NOT NULL,
+            descripcion TEXT NOT NULL,
+            ubicacion TEXT NOT NULL,
+            presidente TEXT NOT NULL,
+            fecha_fundacion TEXT
+        )
+    """)
+    conexion.commit()
+
+    cursor.conexion.cursor()
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS socio_actividad (
+        socio_id     INTEGER,
+        actividad_id INTEGER,
+        PRIMARY KEY (socio_id, actividad_id),
+        FOREIGN KEY (socio_id) REFERENCES socios(id),
+        FOREIGN KEY (actividad_id) REFERENCES actividades(id)
+    )
+""")
+
 
 
 def guardar_socio(conexion, socio):
@@ -111,4 +138,44 @@ def listar_cuotas_de_socio(conexion, usuario):
         cuota = Cuotas(estado, date.fromisoformat(fecha_vencimiento), periodo)
         cuotas.append(cuota)
     return cuotas
+
+
+#buscar un socio
+
+def buscar_socio_por_usuario(conexion, usuario):
+    """Devuelve el Socio (con sus cuotas cargadas) o None si no existe."""
+    cursor = conexion.cursor()
+    cursor.execute("""SELECT * FROM socios WHERE usuario = ? """, (usuario,) )
+    fila = cursor.fetchone()
+    if fila is None:
+        return None
+    else:
+        return construir_socio()
+
+def construir_socio(fila):
+    (nombre_completo, edad, tipo_identificacion, identificacion, nacionalidad, fecha_inscripcion, estado, rol, usuario, contrasenia) = fila
+    return Socio(nombre_completo, edad, tipo_identificacion, identificacion, nacionalidad, fecha_inscripcion, estado, rol, usuario, contrasenia)
+
+
+#guardar club
+def guardar_club(conexion, clubes):
+    """Guarda el club en la tabla clubes (solo si no existe uno)."""
+    cursor = conexion.cursor()
+
+    cursor.execute("SELECT id FROM clubes")
+    fila = cursor.fetchone()
+    if fila is not None:
+        return fila[0]
+
+    cursor.execute(
+        "INSERT INTO clubes (nombre, descripcion,ubicacion, presidente, fecha_fundacion) VALUES (?, ?, ?, ?, ?)", 
+        (
+        clubes.nombre,
+        clubes.descripcion,
+        clubes.ubicacion,
+        clubes.get.presidente(),
+        clubes.get.fecha_de_fundacion()
+        ))
+    conexion.commit()
+
 
