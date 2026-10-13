@@ -39,10 +39,12 @@ def crear_tablas(conexion):
             socio_id  INTEGER NOT NULL,
             estado TEXT DEFAULT 'pendiente',
             fecha_de_vencimiento TEXT,
-            periodo TEXT NOT NULL
+            periodo TEXT NOT NULL,
+            FOREIGN KEY (socio_id) REFERENCES socios(id)
         )
     """)
     conexion.commit()
+
     """Crea las tablas necesarias si no existen."""
     cursor = conexion.cursor()
     cursor.execute("""
@@ -57,7 +59,17 @@ def crear_tablas(conexion):
     """)
     conexion.commit()
 
-    cursor.conexion.cursor()
+    cursor = conexion.cursor()
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS actividades(
+        nombre TEXT NOT NULL,
+        dia TEXT NOT NULL,
+        horario TEXT NOT NULL
+        )
+    """)
+    conexion.commit()
+
+    cursor = conexion.cursor()
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS socio_actividad (
         socio_id     INTEGER,
@@ -67,8 +79,7 @@ def crear_tablas(conexion):
         FOREIGN KEY (actividad_id) REFERENCES actividades(id)
     )
 """)
-
-
+    conexion.commit()
 
 def guardar_socio(conexion, socio):
     """Recibe un objeto Socio y lo guarda en la tabla socios."""
@@ -162,7 +173,7 @@ def guardar_club(conexion, clubes):
     """Guarda el club en la tabla clubes (solo si no existe uno)."""
     cursor = conexion.cursor()
 
-    cursor.execute("SELECT id FROM clubes")
+    cursor.execute("SELECT * FROM clubes")
     fila = cursor.fetchone()
     if fila is not None:
         return fila[0]
@@ -177,5 +188,90 @@ def guardar_club(conexion, clubes):
         clubes.get.fecha_de_fundacion()
         ))
     conexion.commit()
+
+
+
+def guardar_actividad(conexion, socio_actividades):
+    cursor = conexion.cursor()
+
+    cursor.execute("SELECT * FROM socio_actividades") 
+    fila = cursor.fetchone()
+    if fila is not None:
+        return fila[0]
+    
+    cursor.execute(
+        "INSERT INTO socio_actividades (nombre, dia, horario ) VALUES (?,?,?)",
+        (
+        socio_actividades.nombre,
+        socio_actividades.dia,
+        socio_actividades.horario
+        ))
+    conexion.commit()
+    
+
+def anotar_socio_actividad(conexion, usuario, nombre_actividad):
+    """Anota al socio en la actividad indicada."""
+    cursor = conexion.cursor()
+
+    cursor.execute("SELECT id FROM socios WHERE usuario = ?", (usuario,))
+    fila = cursor.fetchone()
+    if fila is None:
+        return "El socio no existe."
+    socio_id = fila[0]
+
+    cursor.execute("SELECT id FROM actividades WHERE nombre = ?", (nombre_actividad,))
+    fila = cursor.fetchone()
+    if fila is None:
+        return f"La actividad {nombre_actividad} no existe."
+    actividad_id = fila[0]
+
+    cursor.execute(
+        "INSERT OR IGNORE INTO actividades (socio_id, actividad_id) VALUES (?, ?)",
+        (socio_id, actividad_id)
+    )
+    conexion.commit()
+    return f"Te anotaste en {nombre_actividad}."
+
+
+def desanotar_socio_actividad(conexion, usuario, nombre_actividad):
+    """
+    Elimina el vínculo entre un socio y una actividad en la tabla socio_actividad.
+    Devuelve True si se eliminó el vínculo, False si no existía.
+    """
+    cursor = conexion.cursor()
+
+    # Buscar el id del socio por su usuario
+    cursor.execute("SELECT id FROM socios WHERE usuario = ?", (usuario,))
+    fila_socio = cursor.fetchone()
+    if fila_socio is None:
+        return False
+
+    # Buscar el id de la actividad por su nombre
+    cursor.execute("SELECT id FROM actividades WHERE nombre = ?", (nombre_actividad,))
+    fila_actividad = cursor.fetchone()
+    if fila_actividad is None:
+        return False
+
+    # Eliminar el vínculo en la tabla intermedia
+    cursor.execute(
+        "DELETE FROM socio_actividad WHERE socio_id = ? AND actividad_id = ?",
+        (fila_socio[0], fila_actividad[0]),
+    )
+    conexion.commit()
+
+
+
+def listar_actividades_de_socio(conexion, usuario):
+    cursor = conexion.cursor()
+    cursor.execute("""
+        SELECT a.nombre, a.dia, a.horario FROM actividades a
+        JOIN socio_actividad sa ON sa.actividad_id = a.id
+        JOIN socios s ON s.id = sa.socio_id
+        WHERE s.usuario = ?
+    """, (usuario,))
+
+    return [listar_actividades_de_socio(nombre, dia, horario)
+    for nombre, dia, horario in cursor.fetchall()]
+
 
 
