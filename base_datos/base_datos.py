@@ -1,6 +1,6 @@
 import sqlite3
 from datetime import date
-from modelo.cuota import Cuotas
+from modelo.cuota import Cuota
 from modelo.socio import Socio
 from modelo.club import Club
 
@@ -110,7 +110,7 @@ def guardar_cuota(conexion, socio, cuota):
     cursor.execute("SELECT id FROM socios WHERE usuario = ?", (socio.get_usuario(),))
     fila = cursor.fetchone()
     if fila is None:
-        raise ValueError("El socio no existe")
+        return "El socio no existe"
 
     socio_id = fila[0]
 
@@ -146,7 +146,7 @@ def listar_cuotas_de_socio(conexion, usuario):
 
     cuotas = []
     for periodo, estado, fecha_vencimiento in cursor.fetchall():
-        cuota = Cuotas(estado, date.fromisoformat(fecha_vencimiento), periodo)
+        cuota = Cuota(estado, date.fromisoformat(fecha_vencimiento), periodo)
         cuotas.append(cuota)
     return cuotas
 
@@ -272,6 +272,5 @@ def listar_actividades_de_socio(conexion, usuario):
 
     return [listar_actividades_de_socio(nombre, dia, horario)
     for nombre, dia, horario in cursor.fetchall()]
-
 
 

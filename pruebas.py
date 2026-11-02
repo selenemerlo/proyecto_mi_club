@@ -1,9 +1,10 @@
 from datetime import date
 from pathlib import Path
-from base_datos.base_datos import conectar, crear_tablas, guardar_cuota, buscar_socio_por_usuario, guardar_actividad ,guardar_socio
+from base_datos.base_datos import conectar, crear_tablas, guardar_socio, buscar_socio_por_usuario, guardar_cuota, listar_cuotas_de_socio, guardar_club, guardar_actividad, anotar_socio_actividad, listar_actividades_de_socio, desanotar_socio_actividad
 from modelo.socio import Socio
-from modelo.cuota import Cuotas
+from modelo.cuota import Cuota
 from modelo.club import Club
+from modelo.actividades import Actividad
 
 RUTA = Path(__file__).parent / "club.db"
 
@@ -20,10 +21,12 @@ Bubu = Socio(
     "Argentina",
     date(2024, 11, 23), 
     "Activo", 
+    "socio",
     "bubu", 
-    "ezebubu",
-    "socio" # <-- Faltaba definir el rol
+    "ezebubu"
+     # <-- Faltaba definir el rol
 )
+
 
 yair = Socio(
     "Yair Alderete ", 
@@ -32,14 +35,15 @@ yair = Socio(
     "50128463", 
     "Argentina",
     date(2024, 11, 23), 
-    "Activo", 
+    "Activo",
+    "socio" , 
     "chaos", 
-    "yair123",
-    "socio" 
+    "yair123"
+    
 )
 
-# guardar_socio(conexion, Bubu)
-# guardar_socio(conexion, yair)
+guardar_socio(conexion, Bubu)
+guardar_socio(conexion, yair)
 buscar_socio_por_usuario(conexion, "chaos")
 print("se busco el socio")
 #-------------------------------------------------------------------------------------------------#
@@ -49,7 +53,7 @@ RUTA = Path(__file__).parent / "club.db"
 conexion = conectar(str(RUTA))
 crear_tablas(conexion)
 
-cuota1 = Cuotas(
+cuota1 = Cuota(
     "pendiente",
     date(2026,5,12),
     "25"
@@ -60,7 +64,7 @@ print("cuota guardada correctamente ")
 
 
 #------------------------------------------------------------------------------------------------___#
-#club se guarda automaticamente
+
 clubcito = Club(
         "Boca Juniors",
         "Club de futbol",
@@ -68,5 +72,5 @@ clubcito = Club(
         "Macri",
         "3 de abril de 1905"
 )
-
+guardar_club(clubcito)
 conexion.close()
