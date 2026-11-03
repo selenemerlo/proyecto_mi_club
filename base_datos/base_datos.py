@@ -156,12 +156,19 @@ def listar_cuotas_de_socio(conexion, usuario):
 def buscar_socio_por_usuario(conexion, usuario):
     """Devuelve el Socio (con sus cuotas cargadas) o None si no existe."""
     cursor = conexion.cursor()
-    cursor.execute("""SELECT * FROM socios WHERE usuario = ? """, (usuario,) )
+    # Pedimos exactamente las 10 columnas en orden, sin el ID
+    cursor.execute("""
+        SELECT nombre_completo, edad, tipo_identificacion, identificacion, 
+               nacionalidad, fecha_inscripcion, estado, rol, usuario, contrasenia 
+        FROM socios 
+        WHERE usuario = ?
+    """, (usuario,))
+    
     fila = cursor.fetchone()
     if fila is None:
         return None
     else:
-        return construir_socio()
+        return construir_socio(fila)
 
 def construir_socio(fila):
     (nombre_completo, edad, tipo_identificacion, identificacion, nacionalidad, fecha_inscripcion, estado, rol, usuario, contrasenia) = fila
@@ -184,8 +191,8 @@ def guardar_club(conexion, clubes):
         clubes.nombre,
         clubes.descripcion,
         clubes.ubicacion,
-        clubes.get.presidente(),
-        clubes.get.fecha_de_fundacion()
+        clubes.get_presidente(),
+        clubes.get_fecha_fundacion()
         ))
     conexion.commit()
 
@@ -194,13 +201,13 @@ def guardar_club(conexion, clubes):
 def guardar_actividad(conexion, socio_actividades):
     cursor = conexion.cursor()
 
-    cursor.execute("SELECT * FROM socio_actividades") 
+    cursor.execute("SELECT * FROM actividades") 
     fila = cursor.fetchone()
     if fila is not None:
         return fila[0]
     
     cursor.execute(
-        "INSERT INTO socio_actividades (nombre, dia, horario ) VALUES (?,?,?)",
+        "INSERT INTO actividades (nombre, dia, horario ) VALUES (?,?,?)",
         (
         socio_actividades.nombre,
         socio_actividades.dia,
@@ -274,3 +281,11 @@ def listar_actividades_de_socio(conexion, usuario):
     for nombre, dia, horario in cursor.fetchall()]
 
 
+def desanotar_socio_actividad(conexion, socio_id, actividad_id):
+    """Elimina la relación entre un socio y una actividad en la tabla intermedia."""
+    cursor = conexion.cursor()
+    cursor.execute(
+        "DELETE FROM socio_actividad WHERE socio_id = ? AND actividad_id = ?",
+        (socio_id, actividad_id)
+    )
+    conexion.commit()

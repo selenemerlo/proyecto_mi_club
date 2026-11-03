@@ -24,7 +24,7 @@ Bubu = Socio(
     "socio",
     "bubu", 
     "ezebubu"
-     # <-- Faltaba definir el rol
+
 )
 
 
@@ -41,9 +41,8 @@ yair = Socio(
     "yair123"
     
 )
-
-guardar_socio(conexion, Bubu)
-guardar_socio(conexion, yair)
+# guardar_socio(conexion, Bubu)
+# guardar_socio(conexion, yair)
 buscar_socio_por_usuario(conexion, "chaos")
 print("se busco el socio")
 #-------------------------------------------------------------------------------------------------#
@@ -59,11 +58,16 @@ cuota1 = Cuota(
     "25"
 )
 
-guardar_cuota(conexion,Bubu, cuota1)
+# guardar_cuota(conexion,Bubu, cuota1)
 print("cuota guardada correctamente ")
 
 
 #------------------------------------------------------------------------------------------------___#
+
+RUTA = Path(__file__).parent / "club.db"
+
+conexion = conectar(str(RUTA))
+crear_tablas(conexion)
 
 clubcito = Club(
         "Boca Juniors",
@@ -72,5 +76,20 @@ clubcito = Club(
         "Macri",
         "3 de abril de 1905"
 )
-guardar_club(clubcito)
+# guardar_club(conexion,clubcito)
 conexion.close()
+
+#------------------------------------------------------------------------------------------------------------#
+
+RUTA = Path(__file__).parent / "club.db"
+
+conexion = conectar(str(RUTA))
+crear_tablas(conexion)
+
+actividadcita = Actividad(
+            "handball",
+            "martes y jueves",
+            "A las 8pm"
+)
+
+# guardar_actividad(conexion, actividadcita)
